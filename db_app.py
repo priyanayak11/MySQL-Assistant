@@ -17,7 +17,8 @@ db_pass = st.secrets["password"]
 db_host = st.secrets["host"]
 db_name = st.secrets["database"]
 safe_password = quote_plus(db_pass)
-engine = create_engine(f"mysql+pymysql://{db_user}:{safe_password}@{db_host}/{db_name}")
+engine = create_engine(f"mysql+pymysql://{db_user}:{safe_password}@{db_host}:{db_port}/{db_name}",
+    connect_args={ "ssl": {"ca": "/etc/ssl/certs/ca-certificates.crt" }})
 db = SQLDatabase(engine,include_tables=["sales_tb"])
 
 
