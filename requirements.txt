@@ -8,4 +8,4 @@ langchain-experimental>=0.0.50
 python-dotenv>=1.0.0
 google-generativeai>=0.4.0
 cryptography
-
+psswd: 4xq8eCA7XHPNpdey - tidb cliuster
