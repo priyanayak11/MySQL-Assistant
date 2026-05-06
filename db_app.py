@@ -19,21 +19,10 @@ db_name = st.secrets["database"]
 db_port = st.secrets.get("port", 4000)
 safe_password = quote_plus(db_pass)
 
-ENV = os.getenv("ENV", "local")
+engine = create_engine(f"mysql+pymysql://{db_user}:{safe_password}@{db_host}:{db_port}/{db_name}")
 
-if ENV == "local":
-    engine = create_engine(
-        f"mysql+pymysql://{db_user}:{safe_password}@localhost:3306/{db_name}"
-    )
-else:
-    engine = create_engine(
-        f"mysql+pymysql://{db_user}:{safe_password}@{db_host}:{db_port}/{db_name}",
-        connect_args={"ssl": {"ca": ca_path}}
-    )
+db = SQLDatabase(engine,schema="retail_sales_db")      
     
-db = SQLDatabase(engine,schema="retail_sales_db")
-
-
 # Prompt
 template = """
 You are a highly skilled data analyst working with a MySQL database.
